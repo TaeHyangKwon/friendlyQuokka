@@ -1,4 +1,4 @@
-package kr.ac.kumoh.s20180073.myapplication.ui.home;
+package kr.ac.kumoh.s20180073.myapplication.ui.day;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import kr.ac.kumoh.s20180073.myapplication.R;
 
-public class HomeFragment extends Fragment {
+public class DayFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private DayViewModel dayViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        dayViewModel =
+                ViewModelProviders.of(this).get(DayViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_day, container, false);
+        final TextView textView = root.findViewById(R.id.text_dashboard);
+        dayViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

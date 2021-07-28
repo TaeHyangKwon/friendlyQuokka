@@ -1,4 +1,4 @@
-package kr.ac.kumoh.s20180073.myapplication.ui.dashboard;
+package kr.ac.kumoh.s20180073.myapplication.ui.week;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import kr.ac.kumoh.s20180073.myapplication.R;
 
-public class DashboardFragment extends Fragment {
+public class WeekFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private WeekViewModel weekViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        weekViewModel =
+                ViewModelProviders.of(this).get(WeekViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_week, container, false);
+        final TextView textView = root.findViewById(R.id.text_notifications);
+        weekViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
