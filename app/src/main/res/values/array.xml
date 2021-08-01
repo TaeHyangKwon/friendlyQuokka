@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_work">
+        <item></item>
+        <item>꿈나라</item>
+        <item>공부</item>
+        <item>밥</item>
+        <item>운동</item>
+        <item>휴식</item>
+        <item>산책</item>
+        <item>롤</item>
+    </string-array>
+</resources>
