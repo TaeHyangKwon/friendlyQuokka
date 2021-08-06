@@ -4,7 +4,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +14,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import kr.ac.kumoh.s20180073.myapplication.R;
+import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class TimeActivity extends AppCompatActivity {
 
@@ -35,7 +36,7 @@ public class TimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
 
-        dayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
+        //dayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
 
         startTime = findViewById(R.id.startTime);
         startTime.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +65,20 @@ public class TimeActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 select = workSpinner.getSelectedItem().toString();
-                Toast.makeText(TimeActivity.this, select, Toast.LENGTH_LONG).show();
+                //Toast.makeText(TimeActivity.this, select, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(TimeActivity.this, "일정을 선택 해 주세요!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Button colorButton = findViewById(R.id.colorButton);
+        colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openColorPicker();
             }
         });
 
@@ -132,4 +141,32 @@ public class TimeActivity extends AppCompatActivity {
         }
     }
 
+    void openColorPicker(){
+        final ColorPicker colorPicker = new ColorPicker(this);
+        ArrayList<String> colors = new ArrayList<>();
+
+        colors.add("#e6ee9c");
+        colors.add("#fff59d");
+        colors.add("#ffe2b7");
+        colors.add("#ffe082");
+        colors.add("#dcb9ff");
+        colors.add("#ffccff");
+        colors.add("#afd7ff");
+        colors.add("#ff7d7d");
+        colors.add("#d0cece");
+        colors.add("#595959");
+
+        colorPicker.setColors(colors).setColumns(4).setRoundColorButton(true)
+                .setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        //ok 버튼 클릭 시 이벤트
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                }).show();
+    }
 }
