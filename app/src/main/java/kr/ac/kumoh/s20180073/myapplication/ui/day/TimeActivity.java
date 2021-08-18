@@ -1,9 +1,11 @@
 package kr.ac.kumoh.s20180073.myapplication.ui.day;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,27 +18,30 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import kr.ac.kumoh.s20180073.myapplication.R;
+import kr.ac.kumoh.s20180073.myapplication.TimeViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class TimeActivity extends AppCompatActivity {
 
-    private DayViewModel dayViewModel;
+    private TimeViewModel timeViewModel;
 
     TextView startTime;
     TextView endTime;
     boolean inputStart = false;
     boolean inputEnd = false;
-    int starthour, startminute, endhour, endeminute, gaphour, gapminute;
-    String select;
+    int date, starthour, startminute, endhour, endeminute, gaphour, gapminute, setcolor;
+    String work;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
 
-        //dayViewModel = ViewModelProviders.of(this).get(DayViewModel.class);
+        timeViewModel = ViewModelProviders.of(this).get(TimeViewModel.class);
 
         startTime = findViewById(R.id.startTime);
         startTime.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +69,8 @@ public class TimeActivity extends AppCompatActivity {
         workSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                select = workSpinner.getSelectedItem().toString();
-                //Toast.makeText(TimeActivity.this, select, Toast.LENGTH_LONG).show();
+                work = workSpinner.getSelectedItem().toString();
+                //Toast.makeText(TimeActivity.this, work, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -86,7 +91,14 @@ public class TimeActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //저장버튼 눌렀을 때 아마 디비에 저장?
+                //디비에 데이터 저장
+                Calendar calendar = new GregorianCalendar(Locale.KOREA);
+                date = calendar.get(Calendar.DAY_OF_MONTH);
+                //Toast.makeText(TimeActivity.this, Integer.toString(date), Toast.LENGTH_LONG).show();
+                Toast.makeText(TimeActivity.this, Integer.toString(starthour), Toast.LENGTH_LONG).show();
+                timeViewModel.requestList(Integer.toString(date), Integer.toString(starthour), Integer.toString(startminute), Integer.toString(endhour), Integer.toString(endeminute), Integer.toString(gaphour), Integer.toString(gapminute), work, Integer.toString(setcolor));
+
+                finish();
             }
         });
     }
@@ -161,6 +173,12 @@ public class TimeActivity extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {
                         //ok 버튼 클릭 시 이벤트
+                        //DayFragment로 선택된 색 넘겨주면 될듯?
+                        Intent intent = new Intent();
+                        intent.putExtra("color", color);
+                        setResult(RESULT_OK, intent);
+                        setcolor = color;
+                        //Toast.makeText(TimeActivity.this, Integer.toString(color), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
