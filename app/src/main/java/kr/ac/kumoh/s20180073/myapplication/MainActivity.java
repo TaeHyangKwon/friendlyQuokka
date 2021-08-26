@@ -1,6 +1,8 @@
 package kr.ac.kumoh.s20180073.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -10,7 +12,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+import kr.ac.kumoh.s20180073.myapplication.ui.month.GraphActivity;
+import kr.ac.kumoh.s20180073.myapplication.ui.month.MonthFragment;
+
+public class MainActivity extends AppCompatActivity implements MonthFragment.onDataPassListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +32,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    public void onDataPass(int data) {
+        int day = data;
+        //Toast.makeText(this, Integer.toString(day),Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this, GraphActivity.class);
+        intent.putExtra("day", day);
+        startActivity(intent);
+    }
 }

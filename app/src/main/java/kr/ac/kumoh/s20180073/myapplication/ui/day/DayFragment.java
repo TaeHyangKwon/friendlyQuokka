@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,13 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import kr.ac.kumoh.s20180073.myapplication.DayViewModel;
 import kr.ac.kumoh.s20180073.myapplication.R;
 
 import static android.app.Activity.RESULT_OK;
-import static java.lang.String.*;
+
 
 public class DayFragment extends Fragment {
 
@@ -43,7 +41,6 @@ public class DayFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_day, container, false);
 
         IsResult = root.findViewById(R.id.IsResult);
-
 
         dayViewModel.getList().observe(getViewLifecycleOwner(), new Observer<ArrayList<DayViewModel.dayList>>() {
             @Override
@@ -79,7 +76,7 @@ public class DayFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            Toast.makeText(getContext(), "뷰홀더 생성", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "뷰홀더 생성", Toast.LENGTH_LONG).show();
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             View itemView = inflater.inflate(R.layout.item_day, parent, false);
             return new ViewHolder(itemView);
@@ -87,8 +84,9 @@ public class DayFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            Toast.makeText(getContext(), "뷰홀더 연결", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "뷰홀더 연결", Toast.LENGTH_LONG).show();
             Log.d("Read", "Element " + position + " set.");
+            holder.date.setText(dayViewModel.getList(position).getDate());
             holder.work.setText(dayViewModel.getList(position).getWork());
             holder.startTime.setText(dayViewModel.getList(position).getStarthour() + ":" + dayViewModel.getList(position).getStartminute());
             holder.endTime.setText(dayViewModel.getList(position).getEndhour() + ":" + dayViewModel.getList(position).getEndminute());
@@ -103,9 +101,10 @@ public class DayFragment extends Fragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder{
-            TextView work, startTime, endTime, gap;
+            TextView date, work, startTime, endTime, gap;
             public ViewHolder(View itemView){
                 super(itemView);
+                date = itemView.findViewById(R.id.date);
                 work = itemView.findViewById(R.id.work);
                 startTime = itemView.findViewById(R.id.startTime);
                 endTime = itemView.findViewById(R.id.endTime);
@@ -122,8 +121,8 @@ public class DayFragment extends Fragment {
 
         if(requestCode == 101){
             if(resultCode == RESULT_OK){
-                color = data.getIntExtra("color", 0);
-                Toast.makeText(getContext(), Integer.toString(color), Toast.LENGTH_LONG).show();
+                //color = data.getIntExtra("color", 0);
+                //Toast.makeText(getContext(), Integer.toString(color), Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -25,6 +25,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    repositories{
+        maven {url "https://jitpack.io"}
+    }
 }
 
 dependencies {
@@ -42,6 +46,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     compile group: 'com.android.volley', name: 'volley', version:'1.1.1'
+
+    compile 'com.github.PhilJay:MpAndroidChart:v3.0.2'
 
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 

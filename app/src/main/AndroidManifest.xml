@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.day.TimeActivity"/>
+        <activity android:name=".ui.month.GraphActivity"/>
     </application>
 
 </manifest>
